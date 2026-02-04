@@ -16,9 +16,9 @@ int[,] Dungeon = new int[5, 5]
 };
 
 //explanation of how to start and build this out//
-//rought out what you can and call it good, if 2 dimesnions in your array
-//seems to work for your code thats great. otherwise go
-//just 1. not a key skill
+//rought out what you can and call it good, if 2 dimesnions in your array seems
+// to work for your code thats great. otherwise go just 1 dimension
+//not a key skill
 //----- Make Choose start position--------------//
 
 //---------- After giving a starting position, loop a method every turn  ------------------//
@@ -62,7 +62,12 @@ void ChooseStartPosition()
                     //comment this int and make another just like it
                     //dungeon should contain random row and random column
 {                  //row first, column second
-    int location = Dungeon[4, 2];
+    //int location = Dungeon[4, 2];
+    int location = Dungeon[rand.Next(0, 5), rand.Next(0, 5)];
+    if (location == 4)
+    {
+        location = Dungeon[rand.Next(0, 5), rand.Next(0, 5)];
+    }
     Console.WriteLine(location);
     Console.WriteLine(Challenges[location]);
 
@@ -74,8 +79,17 @@ void ChooseStartPosition()
 void Move()
 {
     // Ask user for a direction
-    // if it is valid move to that return the new location
+    // if it is valid move to that place then return the new location
     // if not tell the user the move is invalid
+    Console.WriteLine("Please use the following buttons to move: W-Key UP, S-Key DOWN, A-key LEFT, D-key RIGHT");
+    string direction = Console.ReadLine();
+    if (direction != "W" && direction != "A" && direction != "S" && direction != "D")
+    {
+        Console.WriteLine("Invalid input, please use the following buttons to move: W-Key UP, S-Key DOWN, A-key LEFT, D-key RIGHT");
+        direction = Console.ReadLine();
+    }
+
+
 }
 
 void ThankYouForPlaying()
