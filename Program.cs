@@ -60,7 +60,7 @@ ThankYouForPlaying();
                     //not the program.cs file
 void ChooseStartPosition()
                    
-
+					//comments from yesterday, seems pretty much done built
                     //comment this int and make another just like it
                     //dungeon should contain random row and random column
 {                  //row first, column second
@@ -83,42 +83,53 @@ void ChooseStartPosition()
 
 void Move()
 {
+    //declare a new N string for our letters to become directions 
+    string key = "n";
     // Ask user for a direction
     // if it is valid move to that place then return the new location
     // if not tell the user the move is invalid
     Console.WriteLine("Please use the following buttons to move: W-Key UP, S-Key DOWN, A-key LEFT, D-key RIGHT");
     string direction = Console.ReadLine();
-    if (direction != "W" && direction != "A" && direction != "S" && direction != "D")
+	
+	//dont use this because you essentially told each of the direction keys to kill itself, and then you put 
+	//          V   the logic asking to use each key that is now dead inside of that //keep your life simple
+    //    the THIS in question: if (direction != "W" && direction != "A" && direction != "S" && direction != "D")
+	
+	
+	if(direction == "w" || direction == "a" || direction == "s" || direction == "d")
     {
-        Console.WriteLine("Invalid input, please use the following buttons to move: W-Key UP, S-Key DOWN, A-key LEFT, D-key RIGHT");
-                var key = Console.ReadKey(true).Key;
-        if (key == ConsoleKey.W) { /* up */ } direction = Console.ReadLine();
-        }
-        else if (direction == "w")
-        {
-            //move up
-            Row--;
-            Location = Dungeon[Row, Column];
-        }
+               	// dont use var key, keep your life simple (((dont use use this var key = Console.ReadKey(true).Key;)))
+		//use a string instead, check and match the directions to a string 
+        if (direction == ConsoleKey.W && Row.ToString != "0") { 
+            Row--; 
+            direction = Console.ReadLine();
+            }
         
-        else if (direction == "a")
-        {
-            //move left
-            Column--;
-            Location = Dungeon[Row, Column];
-        }
-        else if (direction == "s")
-        {
-            //move down
-            Row++;
-            Location = Dungeon[Row, Column];
-        }
-        else if (direction == "d")
-        {
-            //move right
-            Column++;
-            Location = Dungeon[Row, Column];
-        }
+    }   
+    else if (direction == "a")
+    {
+        //move left
+        //if(direction == ConsoleKey.A && Row!= 0)
+        Column--;
+        Location = Dungeon[Row, Column];
+    }
+    else if (direction == "s")
+    {
+        //move down
+         //if(direction == ConsoleKey.S && Column != 4)
+        Row++;
+        Location = Dungeon[Row, Column];
+    }
+    else if (direction == "d")
+    {
+        //move right
+         //if(direction == ConsoleKey.D && Column != 4)
+        Column++;
+        Location = Dungeon[Row, Column];
+    }
+		else{
+			Console.WriteLine("Invalid input, please use the following buttons to move: W-Key UP, S-Key DOWN, A-key LEFT, D-key RIGHT");
+			} 
     }
 
 
