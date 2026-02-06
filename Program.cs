@@ -67,70 +67,120 @@ void ChooseStartPosition()
     Row = rand.Next(0, 5);
     Column = rand.Next(0, 5);
     Location = Dungeon[Row, Column];
-    if (Location == 4)
+    
+    // Make sure we don't start at the exit (4)
+    while (Location == 4)
     {
         Row = rand.Next(0, 5);
         Column = rand.Next(0, 5);
         Location = Dungeon[Row, Column];
     }
-    Console.WriteLine(Location);
-    Console.WriteLine(Challenges[Location]);
-
-
-
+    
+    Console.WriteLine("=== DUNGEON CRAWLER ===");
+    Console.WriteLine($"You start at position ({Row}, {Column})");
+    Console.WriteLine($"Challenge: {Challenges[Location]}");
+    Console.WriteLine("Find the Exit to escape!");
+    
     // Use Random to set a starting position within the grid that isn't the exit
 }
 
 void Move()
 {
-    //declare a new N string for our letters to become directions 
-    string key = "n";
     // Ask user for a direction
     // if it is valid move to that place then return the new location
     // if not tell the user the move is invalid
-    Console.WriteLine("Please use the following buttons to move: W-Key UP, S-Key DOWN, A-key LEFT, D-key RIGHT");
-    string direction = Console.ReadLine();
-	
-	//dont use this because you essentially told each of the direction keys to kill itself, and then you put 
-	//          V   the logic asking to use each key that is now dead inside of that //keep your life simple
-    //    the THIS in question: if (direction != "W" && direction != "A" && direction != "S" && direction != "D")
-	
-	
-	if(direction == "w" || direction == "a" || direction == "s" || direction == "d")
+    Console.WriteLine("\nPlease use the following buttons to move: W-Key UP, S-Key DOWN, A-key LEFT, D-key RIGHT");
+    string direction = Console.ReadLine().ToLower();  // Convert to lowercase so W or w both work
+    
+    // Using string comparison (Approach 1) - simpler than ConsoleKey
+    // Compare direction string to "w", "a", "s", "d"
+    
+    if (direction == "w")
     {
-               	// dont use var key, keep your life simple (((dont use use this var key = Console.ReadKey(true).Key;)))
-		//use a string instead, check and match the directions to a string 
-        if (direction == ConsoleKey.W && Row.ToString != "0") { 
-            Row--; 
-            direction = Console.ReadLine();
-            }
-        
-    }   
+        //move up
+        if (Row > 0)  // Check if not at top edge (row 0)
+        {
+            Row--;
+            Location = Dungeon[Row, Column];
+            Console.WriteLine($"You moved UP. Current challenge: {Challenges[Location]}");
+        }
+        else
+        {
+            Console.WriteLine("Must've hit a wall! Can't go up.");
+        }
+    }
     else if (direction == "a")
     {
         //move left
-        //if(direction == ConsoleKey.A && Row!= 0)
-        Column--;
-        Location = Dungeon[Row, Column];
+        if (Column > 0)  // Check if not at left edge (column 0)
+        {
+            Column--;
+            Location = Dungeon[Row, Column];
+            Console.WriteLine($"You moved LEFT. Current challenge: {Challenges[Location]}");
+        }
+        else
+        {
+            Console.WriteLine("Must've hit a wall! Can't go left.");
+        }
     }
     else if (direction == "s")
     {
         //move down
-         //if(direction == ConsoleKey.S && Column != 4)
-        Row++;
-        Location = Dungeon[Row, Column];
+        if (Row < 4)  // Check if not at bottom edge (row 4)
+        {
+            Row++;
+            Location = Dungeon[Row, Column];
+            Console.WriteLine($"You moved DOWN. Current challenge: {Challenges[Location]}");
+        }
+        else
+        {
+            Console.WriteLine("Must've hit a wall! Can't go down.");
+        }
     }
     else if (direction == "d")
     {
         //move right
-         //if(direction == ConsoleKey.D && Column != 4)
-        Column++;
-        Location = Dungeon[Row, Column];
+        if (Column < 4)  // Check if not at right edge (column 4)
+        {
+            Column++;
+            Location = Dungeon[Row, Column];
+            Console.WriteLine($"You moved RIGHT. Current challenge: {Challenges[Location]}");
+        }
+        else
+        {
+            Console.WriteLine("Must've hit a wall! Can't go right.");
+        }
     }
-		else{
-			Console.WriteLine("Invalid input, please use the following buttons to move: W-Key UP, S-Key DOWN, A-key LEFT, D-key RIGHT");
-			} 
+    else
+    {
+        Console.WriteLine("Invalid input! Please use W, A, S, or D.");
     }
+    
+    // Check if player reached the exit
+    if (Location == 4)
+    {
+        KeepPlaying = false;
+    }
+        //write cute battle messages
+    if (Location == 0){
+        Console.WriteLine("The room is empty. Nice. A moment of rest before the next challenge.");
+    }
+    else if (Location == 1){
+        Console.WriteLine("Blargh! A monster appears! Blood! Blood! Alright whats next?!");
+    }
+    else if (Location == 2){
+        Console.WriteLine("Whats this a puzzle? It's paper. I think I saw something like \n " +
+        "this on Instagram. Oh man this puzzlebook is full of slang words! this is so cash money!");
+    }
+    else if (Location == 3){
+        Console.WriteLine("Oh no! A trap! You barely dodge it, and skin your knee and your pride. \n" +
+        "Better be careful moving forward!");
+    }
+    else if (Location == 4){
+        Console.WriteLine("You found the exit! You made it out of the cave! Thank you for playing!");
+    
+    }
+}
 
 
 
